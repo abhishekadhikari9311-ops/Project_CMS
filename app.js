@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 
+require("./model/connection");
+
 app.set("view engine", "ejs");
 
 const PORT = 5000;
