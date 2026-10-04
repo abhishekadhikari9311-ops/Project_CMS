@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Edit Blog</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 30px 15px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 700px;
+      }
+
+      .blog-card {
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 35px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .heading {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .heading h1 {
+        color: #333;
+        font-size: 32px;
+        margin-bottom: 8px;
+      }
+
+      .heading p {
+        color: #777;
+        font-size: 15px;
+      }
+
+      .form-group {
+        margin-bottom: 22px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 13px 15px;
+        font-size: 15px;
+        outline: none;
+        transition: 0.3s;
+        background-color: #fafafa;
+      }
+
+      .form-group input {
+        height: 48px;
+      }
+
+      .form-group textarea {
+        min-height: 180px;
+        resize: vertical;
+        line-height: 1.6;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        border-color: #667eea;
+        background-color: #fff;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.12);
+      }
+
+      .button-container {
+        display: flex;
+        gap: 12px;
+        margin-top: 30px;
+      }
+
+      .btn {
+        flex: 1;
+        border: none;
+        border-radius: 10px;
+        padding: 14px 20px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+        transition: 0.3s;
+      }
+
+      .update-btn {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+      }
+
+      .update-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 18px rgba(102, 126, 234, 0.35);
+      }
+
+      .back-btn {
+        background: #f1f1f1;
+        color: #444;
+      }
+
+      .back-btn:hover {
+        background: #e2e2e2;
+        transform: translateY(-2px);
+      }
+
+      @media (max-width: 600px) {
+        .blog-card {
+          padding: 25px 20px;
+        }
+
+        .heading h1 {
+          font-size: 27px;
+        }
+
+        .button-container {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="blog-card">
+        <div class="heading">
+          <h1>✏️ Edit Blog</h1>
+          <p>Update your blog information below</p>
+        </div>
+
+        <form method="POST">
+          <!-- Title -->
+          <div class="form-group">
+            <label for="titleName">Title Name</label>
+
+            <input
+              type="text"
+              id="titleName"
+              name="TitleName"
+              value="<%- blog.TitleName %>"
+              placeholder="Enter blog title"
+              required
+            />
+          </div>
+
+          <!-- Subtitle -->
+          <div class="form-group">
+            <label for="subtitleName">Subtitle Name</label>
+
+            <input
+              type="text"
+              id="subtitleName"
+              name="SubTitleName"
+              value="<%- blog.SubTitleName %>"
+              placeholder="Enter blog subtitle"
+              required
+            />
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label for="description">Description</label>
+
+            <textarea
+              id="description"
+              name="DescriptionName"
+              value="<%- blog.DescriptionName %>"
+              placeholder="Write your blog description..."
+              required
+            >
+<%= blog.DescriptionName %></textarea
+            >
+          </div>
+
+          <!-- Buttons -->
+          <div class="button-container">
+            <a href="/" class="btn back-btn"> ← Back </a>
+
+            <button type="submit" class="btn update-btn">✨ Update Blog</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

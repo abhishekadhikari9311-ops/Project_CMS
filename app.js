@@ -144,6 +144,37 @@ app.get("/delete/:id", async (req, res) => {
   res.redirect("/");
 });
 
+app.get("/edit/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const blog = await blogs.findByPk(id);
+
+  res.render("editBlog", {
+    id,
+    blog,
+  });
+});
+
+app.post("/edit/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const { TitleName, SubTitleName, DescriptionName } = req.body;
+
+  const editBlog = await blogs.update(
+    {
+      TitleName,
+      SubTitleName,
+      DescriptionName,
+    },
+    {
+      where: {
+        id,
+      },
+    },
+  );
+  res.redirect("/");
+});
+
 app.listen(PORT, () => {
   console.log(`server is running at ${PORT}`);
 });
