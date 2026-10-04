@@ -1,5 +1,5 @@
 const express = require("express");
-const { blogs, Blogs } = require("./model/connection");
+const { blogs, users } = require("./model/connection");
 const app = express();
 
 require("./model/connection");
@@ -49,6 +49,44 @@ app.post("/addblog", async (req, res) => {
   });
 
   return res.redirect("/");
+});
+
+app.get("/register", (req, res) => {
+  res.render("register");
+});
+
+app.post("/register", async (req, res) => {
+  const {
+    UserName,
+    UserEmail,
+    UserPassword,
+    UserPhoneNumber,
+    ConfirmUserPassword,
+  } = req.body;
+
+  if (
+    !UserName ||
+    !UserEmail ||
+    !UserPassword ||
+    !ConfirmUserPassword ||
+    !UserPhoneNumber
+  ) {
+    return res.status(400).send("please provide complete details");
+  }
+
+  // Check password confirmation
+  if (UserPassword !== ConfirmUserPassword) {
+    return res.status(400).send("Passwords do not match");
+  }
+
+  await users.create({
+    UserName,
+    UserEmail,
+    UserPassword,
+    UserPhoneNumber,
+  });
+
+  return res.status(200).redirect("/");
 });
 
 app.listen(PORT, () => {

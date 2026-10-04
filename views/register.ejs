@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register | My Blog</title>
+    <!-- <meta http-equiv="refresh" content="1" /> -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+      }
+
+      .register-container {
+        width: 420px;
+        background: white;
+        padding: 35px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      }
+
+      .register-container h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 8px;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: #777;
+        margin-bottom: 25px;
+      }
+
+      .form-group {
+        margin-bottom: 18px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 7px;
+        font-weight: bold;
+        color: #444;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 7px;
+        font-size: 15px;
+        outline: none;
+        transition: 0.3s;
+      }
+
+      .form-group input:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 5px rgba(102, 126, 234, 0.4);
+      }
+
+      .register-btn {
+        width: 100%;
+        padding: 13px;
+        border: none;
+        border-radius: 7px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .register-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .login-link {
+        text-align: center;
+        margin-top: 20px;
+        color: #666;
+      }
+
+      .login-link a {
+        color: #667eea;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .login-link a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="register-container">
+      <h1>Create Account</h1>
+      <p class="subtitle">Register for a new account</p>
+
+      <form action="/register" method="POST">
+        <div class="form-group">
+          <label for="UserName">Full Name</label>
+          <input
+            type="text"
+            id="UserName"
+            name="UserName"
+            placeholder="Enter your full name"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="UserEmail">Email Address</label>
+          <input
+            type="email"
+            id="UserEmail"
+            name="UserEmail"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="UserPhoneNumber">Phone Number</label>
+          <input
+            type="email"
+            id="UserPhoneNumber"
+            name="UserPhoneNumber"
+            placeholder="Enter your phone Number"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="UserPassword">Password</label>
+          <input
+            type="password"
+            id="UserPassword"
+            name="UserPassword"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="ConfirmUserPassword">Confirm Password</label>
+          <input
+            type="password"
+            id="ConfirmUserPassword"
+            name="ConfirmUserPassword"
+            placeholder="Confirm your password"
+            required
+          />
+        </div>
+
+        <input type="submit" value="Register User" />
+      </form>
+
+      <p class="login-link">
+        Already have an account?
+        <a href="/login">Login here</a>
+      </p>
+    </div>
+  </body>
+</html>
