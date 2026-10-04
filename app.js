@@ -1,5 +1,7 @@
 const express = require("express");
-const { blogs, users } = require("./model/connection");
+const { users, blogs } = require("./model/connection");
+const userModel = require("./model/userModel");
+const { where } = require("sequelize");
 const app = express();
 
 require("./model/connection");
@@ -17,9 +19,9 @@ const PORT = 5000;
 
 // home page
 
-app.get("/", (req, res) => {
-  res.render("home");
-});
+// app.get("/", (req, res) => {
+//   res.render("home");
+// });
 
 app.get("/about", (req, res) => {
   res.render("about");
@@ -55,7 +57,7 @@ app.get("/register", (req, res) => {
   res.render("register");
 });
 
-app.post("/register", async (req, res) => {
+app.post("/post-register", async (req, res) => {
   const {
     UserName,
     UserEmail,
@@ -87,6 +89,59 @@ app.post("/register", async (req, res) => {
   });
 
   return res.status(200).redirect("/");
+});
+
+app.get("/users", async (req, res) => {
+  const fetchUsers = await users.findAll();
+  console.log("fetch all the users:---", fetchUsers);
+
+  res.render("users", { fetchUsers });
+});
+
+app.get("/", async (req, res) => {
+  try {
+    const fetchBlog = await blogs.findAll();
+
+    console.log("fetch all blogs:-------->", fetchBlog);
+
+    res.render("home", { fetchBlog });
+  } catch (err) {
+    console.log("error:---", err);
+    res.status(500).send("Error fetching blogs");
+  }
+});
+
+app.get("/:id", async (req, res) => {
+  try {
+    const blogId = req.params.id;
+
+    console.log("ID:", blogId);
+
+    const singleBlog = await blogs.findByPk(blogId);
+
+    console.log("single blog fetching:", singleBlog);
+
+    if (!singleBlog) {
+      return res.status(404).send("Blog not found");
+    }
+
+    res.render("singleBlog", {
+      blog: singleBlog,
+    });
+  } catch (err) {
+    console.error("error", err);
+    res.status(500).send("single error fetching");
+  }
+});
+
+app.get("/delete/:id", async (req, res) => {
+  const { id } = req.params;
+
+  await blogs.destroy({
+    where: { id },
+  });
+
+  res.redirect("/");
 });
 
 app.listen(PORT, () => {

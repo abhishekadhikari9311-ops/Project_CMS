@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Fetching All The Users:----</h1>
+    <% fetchUsers.forEach((u)=>{ %>
+        <p>
+          <%=  u.UserName %>
+        </p>
+   <% }) %>
+   <br>
+   <h2>
+    the number of users to be registered is:---- <%= fetchUsers.length %>
+   </h2>
+  </body>
+</html>

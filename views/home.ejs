@@ -3,12 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <meta http-equiv="refresh" content="1"> -->
     <title>Document</title>
   </head>
   <body>
     <%- include("navbar")%>
     <h1>this is displayed from home.ejs file</h1>
+
+   <% fetchBlog.forEach((b) => { %>
+      <h2><%= b.dataValues.TitleName %></h2>
+      <h3><%= b.dataValues.SubTitleName %></h3>
+      <h4><%= b.dataValues.DescriptionName %></h4>
+      <a href="/<%= b.id %>">see more</a>
+      
+      <hr>
+    <% }) %>
+
     <%-include('footer')%>
   </body>
 </html>
