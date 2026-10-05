@@ -518,7 +518,7 @@
            ADD BLOG FORM
       ========================== -->
 
-        <form action="/addblog" method="POST">
+        <form action="/addblog" method="POST" enctype="multipart/form-data">
           <!-- TITLE -->
 
           <div class="form-group">
@@ -557,6 +557,16 @@
               name="DescriptionName"
               placeholder="Enter an engaging blog title..."
               maxlength="100"
+              required
+            />
+
+            <label for="image">
+              Blog image
+              <span class="required">*</span> </label
+            ><input
+              type="file"
+              id="image"
+              name="image"
               required
             />
           </div>

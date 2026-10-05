@@ -1,7 +1,6 @@
 const express = require("express");
 const { users, blogs } = require("./model/connection");
-const userModel = require("./model/userModel");
-const { where } = require("sequelize");
+const { multer, storage } = require("./middleware/multerConfig");
 const app = express();
 
 require("./model/connection");
@@ -15,13 +14,9 @@ app.use(
 );
 app.use(express.json());
 
+const upload = multer({ storage });
+
 const PORT = 5000;
-
-// home page
-
-// app.get("/", (req, res) => {
-//   res.render("home");
-// });
 
 app.get("/about", (req, res) => {
   res.render("about");
@@ -34,8 +29,10 @@ app.get("/addblog", (req, res) => {
   res.render("addBlog", { user });
 });
 
-app.post("/addblog", async (req, res) => {
+app.post("/addblog", upload.single("image"), async (req, res) => {
   const { TitleName, SubTitleName, DescriptionName } = req.body;
+
+  console.log("image inserted:----", req.file.path);
 
   console.log(TitleName, SubTitleName, DescriptionName);
 
