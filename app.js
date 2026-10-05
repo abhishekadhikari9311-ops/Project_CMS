@@ -32,7 +32,7 @@ app.get("/addblog", (req, res) => {
 app.post("/addblog", upload.single("image"), async (req, res) => {
   const { TitleName, SubTitleName, DescriptionName } = req.body;
 
-  console.log("image inserted:----", req.file.path);
+  console.log("image inserted:----", req.file);
 
   console.log(TitleName, SubTitleName, DescriptionName);
 
@@ -45,6 +45,7 @@ app.post("/addblog", upload.single("image"), async (req, res) => {
     TitleName,
     SubTitleName,
     DescriptionName,
+    ImageUrlPath: req.file.filename,
   });
 
   return res.redirect("/");
