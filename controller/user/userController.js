@@ -1,4 +1,6 @@
+const { where } = require("sequelize");
 const { users } = require("../../model/connection");
+const bcrypt = require("bcryptjs");
 
 exports.getRegisterPage = (req, res) => {
   res.render("register");
@@ -23,6 +25,10 @@ exports.postRegisterPage = async (req, res) => {
     return res.status(400).send("please provide complete details");
   }
 
+  //  checking or confirming password--------->
+
+  const hashedPassword = bcrypt.hashSync(UserPassword, 12);
+
   // Check password confirmation
   if (UserPassword !== ConfirmUserPassword) {
     return res.status(400).send("Passwords do not match");
@@ -31,7 +37,7 @@ exports.postRegisterPage = async (req, res) => {
   await users.create({
     UserName,
     UserEmail,
-    UserPassword,
+    UserPassword: hashedPassword,
     UserPhoneNumber,
   });
 
@@ -43,4 +49,36 @@ exports.getUsers = async (req, res) => {
   console.log("fetch all the users:---", fetchUsers);
 
   res.render("users", { fetchUsers });
+};
+
+exports.getLoginPage = async (req, res) => {
+  res.render("login");
+};
+
+exports.postLoginPage = async (req, res) => {
+  const { userEmail, password } = req.body;
+
+  if (!userEmail || !password) {
+    return res.status(400).send("please provide all given details.......");
+  }
+
+  const userExists = await users.findOne({
+    where: {
+      userEmail: userEmail,
+    },
+  });
+
+  console.log("userExists--------->", userExists);
+
+  if (!userExists) {
+    return res.status(400).send("user not found...");
+  }
+
+  const isPasswordMatch = bcrypt.compareSync(password, userExists.UserPassword);
+
+  if (!isPasswordMatch) {
+    return res.status(400).send("password didn't match ...........");
+  }
+
+  res.redirect("/blog/");
 };
