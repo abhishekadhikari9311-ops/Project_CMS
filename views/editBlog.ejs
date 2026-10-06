@@ -155,7 +155,7 @@
           <p>Update your blog information below</p>
         </div>
 
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
           <!-- Title -->
           <div class="form-group">
             <label for="titleName">Title Name</label>
@@ -196,6 +196,21 @@
               required
             >
 <%= blog.DescriptionName %></textarea
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="image">Image</label>
+
+            <input
+              type="file"
+              id="image"
+              name="image"
+              value="<%- blog.image %>"
+              placeholder="Write your blog description..."
+              required
+            />
+
             >
           </div>
 

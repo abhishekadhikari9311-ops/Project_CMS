@@ -1,3 +1,5 @@
+const { users } = require("../../model/connection");
+
 exports.getRegisterPage = (req, res) => {
   res.render("register");
 };
@@ -33,7 +35,7 @@ exports.postRegisterPage = async (req, res) => {
     UserPhoneNumber,
   });
 
-  return res.status(200).redirect("/");
+  return res.status(200).redirect("/user/get-users");
 };
 
 exports.getUsers = async (req, res) => {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -15,11 +15,55 @@
       <h4><%= b.dataValues.DescriptionName %></h4>
       <img src="<%= b.image %>" alt="blog-image" srcset="" width="150" height="150" />
       <br>
-      <a href="<%= b.id %>">see more</a>
+      <a href="/blog/<%= b.id %>">see more</a>
       
       <hr>
     <% }) %>
 
     <%-include('footer')%>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Home</title>
+  </head>
+
+  <body>
+    <%- include("navbar") %>
+
+    <h1>This is displayed from home.ejs file</h1>
+
+    <% fetchBlog.forEach((b) => { %>
+
+      <h2><%= b.TitleName %></h2>
+
+      <h3><%= b.SubTitleName %></h3>
+
+      <p><%= b.DescriptionName %></p>
+
+      <img
+        src="<%= b.image %>"
+        alt="blog-image"
+        width="150"
+        height="150"
+      />
+
+      <br />
+
+      <!-- SEE MORE -->
+      <a href="/blog/<%= b.id %>">
+        See More
+      </a>
+
+      <hr />
+
+    <% }) %>
+
+    <%- include("footer") %>
   </body>
 </html>
