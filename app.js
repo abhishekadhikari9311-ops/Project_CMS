@@ -14,6 +14,10 @@ app.use(
 );
 app.use(express.json());
 
+app.use(express.static("./uploads/"));
+
+app.use(express.static(__dirname+"/public/"))
+
 const upload = multer({ storage });
 
 const PORT = 5000;
@@ -45,7 +49,7 @@ app.post("/addblog", upload.single("image"), async (req, res) => {
     TitleName,
     SubTitleName,
     DescriptionName,
-    ImageUrlPath: req.file.filename,
+    image: "http://localhost:5000/" + req.file.filename,
   });
 
   return res.redirect("/");

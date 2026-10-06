@@ -13,8 +13,9 @@
       <h2><%= b.dataValues.TitleName %></h2>
       <h3><%= b.dataValues.SubTitleName %></h3>
       <h4><%= b.dataValues.DescriptionName %></h4>
-      <img src="/<%= b.ImageUrlPath %>" alt="blog-image" srcset="" /><br>
-      <a href="/<%= b.id %>">see more</a>
+      <img src="<%= b.image %>" alt="blog-image" srcset="" width="150" height="150" />
+      <br>
+      <a href="<%= b.id %>">see more</a>
       
       <hr>
     <% }) %>
