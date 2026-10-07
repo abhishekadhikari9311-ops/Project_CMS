@@ -26,6 +26,10 @@ db.sequelize = sequelize;
 db.blogs = require("./blogModel")(sequelize, DataTypes);
 db.users = require("./userModel")(sequelize, DataTypes);
 
+//  relationships
+db.users.hasMany(db.blogs);
+db.blogs.belongsTo(db.users);
+
 sequelize.sync({ alter: false }).then(() => {
   console.log("changes migrated successfully!");
 });

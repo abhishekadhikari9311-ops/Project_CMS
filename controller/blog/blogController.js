@@ -2,11 +2,7 @@ const { blogs } = require("../../model/connection");
 
 exports.postAddBlog = async (req, res) => {
   try {
-    console.log("=================================");
-    console.log("POST /blog/addblog reached");
-    console.log("BODY:", req.body);
-    console.log("FILE:", req.file);
-    console.log("=================================");
+    const { userId } = req;
 
     const { TitleName, SubTitleName, DescriptionName } = req.body;
 
@@ -23,6 +19,7 @@ exports.postAddBlog = async (req, res) => {
       SubTitleName,
       DescriptionName,
       image: "http://localhost:5000/" + req.file.filename,
+      userId,
     });
 
     console.log("Blog created:", newBlog);

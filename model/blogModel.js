@@ -16,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
+    userId: {
+      type: DataTypes.INTEGER,
+    },
   });
   return Blog;
 };

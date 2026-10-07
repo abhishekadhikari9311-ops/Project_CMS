@@ -48,6 +48,7 @@ const {
 const multer = require("multer");
 const { storage } = require("../../middleware/multerConfig");
 const { renderHome } = require("../../controller/HomeController");
+const { isAuthenticated } = require("../../middleware/isAuthenticated");
 
 const upload = multer({ storage });
 
@@ -60,7 +61,7 @@ router.get("/", renderHome);
 router
   .route("/addblog")
   .get(getAddBlog)
-  .post(upload.single("image"), postAddBlog);
+  .post(upload.single("image"), isAuthenticated, postAddBlog);
 
 // Single blog
 router.get("/:id", getSingleBlog);
