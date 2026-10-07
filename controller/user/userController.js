@@ -1,6 +1,7 @@
-const { where } = require("sequelize");
+// const { where } = require("sequelize");
 const { users } = require("../../model/connection");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 exports.getRegisterPage = (req, res) => {
   res.render("register");
@@ -79,6 +80,22 @@ exports.postLoginPage = async (req, res) => {
   if (!isPasswordMatch) {
     return res.status(400).send("password didn't match ...........");
   }
+
+  //  generates the token
+
+  const token = jwt.sign(
+    {
+      id: userExists.id,
+    },
+    "jwtsecretkey",
+    {
+      expiresIn: "1d",
+    },
+  );
+
+  //storing token in a cookie
+
+  res.cookie("token", token);
 
   res.redirect("/blog/");
 };
