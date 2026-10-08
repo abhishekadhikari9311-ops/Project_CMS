@@ -1,8 +1,12 @@
-const { blogs } = require("../model/connection");
+const { blogs, users } = require("../model/connection");
 
 exports.renderHome = async (req, res) => {
   try {
-    const fetchBlog = await blogs.findAll();
+    const fetchBlog = await blogs.findAll({
+      include: {
+        model: users,
+      },
+    });
 
     console.log("All blogs:", fetchBlog);
 

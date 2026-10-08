@@ -4,6 +4,11 @@ const app = express();
 
 app.use(cookieParser());
 
+app.use((req, res, next) => {
+  res.locals.currentUser = req.cookies.token;
+  next();
+});
+
 require("./model/connection");
 
 app.set("view engine", "ejs");

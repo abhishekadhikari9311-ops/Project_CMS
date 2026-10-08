@@ -1,4 +1,3 @@
-// const { where } = require("sequelize");
 const { users } = require("../../model/connection");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -98,4 +97,12 @@ exports.postLoginPage = async (req, res) => {
   res.cookie("token", token);
 
   res.redirect("/blog/");
+};
+
+exports.logoutUsers = async (req, res) => {
+  const { userId } = req;
+  res.clearCookie("token");
+  res.render("logout", {
+    userId,
+  });
 };

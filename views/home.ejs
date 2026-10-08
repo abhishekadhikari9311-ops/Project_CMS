@@ -1,29 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <%- include("navbar")%>
-    <h1>this is displayed from home.ejs file</h1>
-
-   <% fetchBlog.forEach((b) => { %>
-      <h2><%= b.dataValues.TitleName %></h2>
-      <h3><%= b.dataValues.SubTitleName %></h3>
-      <h4><%= b.dataValues.DescriptionName %></h4>
-      <img src="<%= b.image %>" alt="blog-image" srcset="" width="150" height="150" />
-      <br>
-      <a href="/blog/<%= b.id %>">see more</a>
-      
-      <hr>
-    <% }) %>
-
-    <%-include('footer')%>
-  </body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -45,6 +19,18 @@
       <h3><%= b.SubTitleName %></h3>
 
       <p><%= b.DescriptionName %></p>
+
+      <p>
+        <%= b.user.UserName %>
+      </p>
+
+      <p>
+        <%= b.user.UserEmail %>
+      </p>
+
+       <p>
+        <%= b.user.UserPhoneNumber %>
+      </p>
 
       <img
         src="<%= b.image %>"

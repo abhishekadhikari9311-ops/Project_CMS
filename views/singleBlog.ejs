@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -19,12 +17,15 @@
 
     <p><%= blog.DescriptionName %></p>
 
+    <p><%= blog.user.UserName %></p>
+
     <img src="<%= blog.image %>" alt="blog image" width="400" />
 
     <br />
     <br />
 
-    <a href="/blog/delete/<%= blog.id %>"> Delete this </a>
+    <% if(currentUserId===blog.userId) {%>
+ <a href="/blog/delete/<%= blog.id %>"> Delete this </a>
 
     <br />
     <br />
@@ -34,6 +35,9 @@
     <br />
     <br />
 
+  <%  } %>
+
+   
     <a href="/blog/"> Back to Home </a>
   </body>
 </html>

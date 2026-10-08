@@ -2,14 +2,156 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <meta http-equiv="refresh" content="1"> -->
-    <title>Document</title>
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>MyBlog Navbar</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .navbar {
+        width: 100%;
+        padding: 16px 50px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        background: linear-gradient(
+          135deg,
+          #667eea,
+          #764ba2
+        );
+
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      }
+
+      .logo {
+        color: white;
+        text-decoration: none;
+        font-size: 25px;
+        font-weight: bold;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 600;
+
+        padding: 9px 15px;
+        border-radius: 8px;
+
+        transition: 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        background: rgba(255, 255, 255, 0.18);
+        transform: translateY(-2px);
+      }
+
+      .logout-btn {
+        background: #ff4757;
+      }
+
+      .logout-btn:hover {
+        background: #e84118 !important;
+      }
+
+      .register-btn {
+        background: rgba(255, 255, 255, 0.18);
+      }
+
+      .login-btn {
+        background: white;
+        color: #667eea !important;
+      }
+
+      .login-btn:hover {
+        background: #f1f1f1 !important;
+      }
+
+      @media (max-width: 600px) {
+        .navbar {
+          padding: 15px 20px;
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .nav-links {
+          gap: 8px;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .nav-links a {
+          font-size: 14px;
+          padding: 8px 11px;
+        }
+      }
+    </style>
   </head>
+
   <body>
-    <nav>
-      <a href="/blog">Home </a>
-      
+
+    <nav class="navbar">
+
+      <!-- Logo -->
+      <a href="/blog" class="logo">
+        MyBlog
+      </a>
+
+      <!-- Navigation Links -->
+      <div class="nav-links">
+
+        <a href="/blog">
+          Home
+        </a>
+
+        <% if (currentUser) { %>
+
+          <a href="/blog/addblog">
+            Add Blog
+          </a>
+
+          <a href="/user/logout" class="logout-btn">
+            Logout
+          </a>
+
+        <% } else { %>
+
+          <a href="/user/register" class="register-btn">
+            Register
+          </a>
+
+          <a href="/user/login" class="login-btn">
+            Login
+          </a>
+
+        <% } %>
+
+      </div>
+
     </nav>
+
   </body>
 </html>
+

@@ -1,8 +1,13 @@
-const { blogs } = require("../../model/connection");
+const { where } = require("sequelize");
+const { blogs, users } = require("../../model/connection");
 
 exports.postAddBlog = async (req, res) => {
   try {
     const { userId } = req;
+
+    if (!userId) {
+      return res.render("login");
+    }
 
     const { TitleName, SubTitleName, DescriptionName } = req.body;
 
@@ -35,9 +40,18 @@ exports.getSingleBlog = async (req, res) => {
   try {
     const { id } = req.params;
 
+    const { userId } = req;
+
     console.log("Single Blog ID:", id);
 
-    const singleBlog = await blogs.findByPk(id);
+    const singleBlog = await blogs.findOne({
+      where: {
+        id,
+      },
+      include: {
+        model: users,
+      },
+    });
 
     console.log("Single Blog:", singleBlog);
 
@@ -47,6 +61,7 @@ exports.getSingleBlog = async (req, res) => {
 
     res.render("singleBlog", {
       blog: singleBlog,
+      currentUserId: userId,
     });
   } catch (err) {
     console.error("Error fetching single blog:", err);

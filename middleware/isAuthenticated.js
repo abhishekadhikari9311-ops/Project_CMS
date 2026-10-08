@@ -24,6 +24,8 @@ exports.isAuthenticated = async (req, res, next) => {
 
     req.userId = user.id;
 
+    res.locals.currentUser = req.cookies.token;
+
     next();
   } catch (err) {
     console.log("Authentication error:---------->", err);
