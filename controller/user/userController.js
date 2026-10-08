@@ -121,12 +121,16 @@ exports.postForgotPassword = async (req, res) => {
     return res.redirect("/user/forgot-password");
   }
 
+  //  generating a random number
+
+  const random_number = Math.floor(Math.floor(10000 * Math.random(99999)));
+
+  console.log(random_number, "random number generation...........!");
+
   const data = {
     email,
     subject: "otp code sent..........!",
-    text:
-      "your otp code is:--->" +
-      "156876ggggggggggggggggggggggggggggggggggggggggg",
+    text: "your otp code is:--->" + random_number,
   };
 
   const emailSent = await sendEmail(data);
