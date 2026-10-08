@@ -113,15 +113,23 @@ exports.getForgotPassword = async (req, res) => {
 };
 
 exports.postForgotPassword = async (req, res) => {
-  const { UserEmail } = req.body;
+  const { email } = req.body;
 
-  console.log("userEmail :--", UserEmail);
+  console.log("userEmail :--", email);
 
-  if (!UserEmail) {
+  if (!email) {
     return res.redirect("/user/forgot-password");
   }
 
-  const emailSent = await sendEmail(UserEmail);
+  const data = {
+    email,
+    subject: "otp code sent..........!",
+    text:
+      "your otp code is:--->" +
+      "156876ggggggggggggggggggggggggggggggggggggggggg",
+  };
+
+  const emailSent = await sendEmail(data);
   console.log("email sent successfully");
 
   res.send("otp sent successfully");
