@@ -7,6 +7,8 @@ const {
   logoutUsers,
   getForgotPassword,
   postForgotPassword,
+  renderOtpForm,
+  verifyOtpForm,
 } = require("../../controller/user/userController");
 const { isAuthenticated } = require("../../middleware/isAuthenticated");
 
@@ -26,5 +28,7 @@ router
   .route("/forgot-password")
   .get(getForgotPassword)
   .post(postForgotPassword);
+
+router.route("/otp-verify/:email").get(renderOtpForm).post(verifyOtpForm)
 
 module.exports = router;

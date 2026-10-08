@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>OTP Verification</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+      }
+
+      .otp-container {
+        width: 380px;
+        padding: 40px;
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        text-align: center;
+      }
+
+      .otp-container h2 {
+        margin-bottom: 10px;
+        color: #222;
+        font-size: 28px;
+      }
+
+      .otp-container p {
+        margin-bottom: 30px;
+        color: #777;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .otp-container label {
+        display: block;
+        margin-bottom: 10px;
+        text-align: left;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .otp-input {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        outline: none;
+        font-size: 22px;
+        text-align: center;
+        letter-spacing: 8px;
+        transition: 0.3s;
+      }
+
+      .otp-input:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 8px rgba(102, 126, 234, 0.3);
+      }
+
+      .verify-btn {
+        width: 100%;
+        margin-top: 25px;
+        padding: 14px;
+        border: none;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .verify-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+      }
+
+      .verify-btn:active {
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="otp-container">
+      <h2>OTP Verification</h2>
+
+      <p>Enter the one-time password sent to your phone or email.</p>
+
+      <form action="/user/otp-verify/<%- encodeURIComponent(email) %>" method="POST">
+        <label for="otp">Enter OTP</label>
+
+        <input
+          type="number"
+          id="otp"
+          name="otp"
+          class="otp-input"
+          placeholder="••••••"
+          required
+        />
+
+        <input type="submit" value="Verify otp" />
+      </form>
+    </div>
+  </body>
+</html>

@@ -2,6 +2,7 @@ const { users } = require("../../model/connection");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const sendEmail = require("../../services/sendEmail");
+const { where } = require("sequelize");
 
 exports.getRegisterPage = (req, res) => {
   res.render("register");
@@ -123,9 +124,21 @@ exports.postForgotPassword = async (req, res) => {
 
   //  generating a random number
 
-  const random_number = Math.floor(Math.floor(10000 * Math.random(99999)));
+  const random_number = Math.floor(10000 + Math.random() * 90000);
 
   console.log(random_number, "random number generation...........!");
+
+  // getting the user info...............
+
+  const userData = await users.findOne({
+    where: { UserEmail: email },
+  });
+
+  console.log("user data-------->", userData);
+
+  if (!userData) {
+    return res.status(404).send("User with this email does not exist.");
+  }
 
   const data = {
     email,
@@ -133,8 +146,37 @@ exports.postForgotPassword = async (req, res) => {
     text: "your otp code is:--->" + random_number,
   };
 
-  const emailSent = await sendEmail(data);
+  await sendEmail(data);
   console.log("email sent successfully");
 
-  res.send("otp sent successfully");
+  // adding the otp to the given user table-------------->
+
+  userData.OTP = random_number;
+
+  await userData.save();
+
+  res.redirect("/user/otp-verify/" + encodeURIComponent(email));
+};
+
+exports.renderOtpForm = async (req, res) => {
+  const { email } = req.params;
+  res.render("otpForm", {
+    email,
+  });
+};
+
+exports.verifyOtpForm = async (req, res) => {
+  const { otp } = req.body;
+  const { email } = req.params;
+  const userData = await users.findOne({
+    where: {
+      OTP: otp,
+      UserEmail: email,
+    },
+  });
+  if (!userData) {
+    return res.send("user with the given otp and email not found...........");
+  }
+
+  res.send("otp verified success");
 };
