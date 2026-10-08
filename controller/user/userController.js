@@ -1,6 +1,7 @@
 const { users } = require("../../model/connection");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const sendEmail = require("../../services/sendEmail");
 
 exports.getRegisterPage = (req, res) => {
   res.render("register");
@@ -105,4 +106,23 @@ exports.logoutUsers = async (req, res) => {
   res.render("logout", {
     userId,
   });
+};
+
+exports.getForgotPassword = async (req, res) => {
+  res.render("forgot-password");
+};
+
+exports.postForgotPassword = async (req, res) => {
+  const { UserEmail } = req.body;
+
+  console.log("userEmail :--", UserEmail);
+
+  if (!UserEmail) {
+    return res.redirect("/user/forgot-password");
+  }
+
+  const emailSent = await sendEmail(UserEmail);
+  console.log("email sent successfully");
+
+  res.send("otp sent successfully");
 };
