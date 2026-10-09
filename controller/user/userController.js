@@ -5,7 +5,8 @@ const sendEmail = require("../../services/sendEmail");
 const { where } = require("sequelize");
 
 exports.getRegisterPage = (req, res) => {
-  res.render("register");
+  const error = req.flash("error");
+  res.render("register", { error });
 };
 
 exports.postRegisterPage = async (req, res) => {
@@ -54,7 +55,8 @@ exports.getUsers = async (req, res) => {
 };
 
 exports.getLoginPage = async (req, res) => {
-  res.render("login");
+  const error = req.flash("error");
+  res.render("login", { error });
 };
 
 exports.postLoginPage = async (req, res) => {
@@ -73,13 +75,15 @@ exports.postLoginPage = async (req, res) => {
   console.log("userExists--------->", userExists);
 
   if (!userExists) {
-    return res.status(400).send("user not found...");
+    req.flash("error", "user not found...");
+    res.redirect("/user/register");
   }
 
   const isPasswordMatch = bcrypt.compareSync(password, userExists.UserPassword);
 
   if (!isPasswordMatch) {
-    return res.status(400).send("password didn't match ...........");
+    req.flash("error", "email and password didn't match ...........");
+    res.redirect("/user/login");
   }
 
   //  generates the token
