@@ -9,6 +9,8 @@ const {
   postForgotPassword,
   renderOtpForm,
   verifyOtpForm,
+  handleResetPassword,
+  renderResetPassword,
 } = require("../../controller/user/userController");
 const { isAuthenticated } = require("../../middleware/isAuthenticated");
 
@@ -29,6 +31,10 @@ router
   .get(getForgotPassword)
   .post(postForgotPassword);
 
-router.route("/otp-verify/:email").get(renderOtpForm).post(verifyOtpForm)
+router.route("/otp-verify/:email").get(renderOtpForm).post(verifyOtpForm);
+
+router.route("/reset-password").get(renderResetPassword);
+
+router.route("/reset-password/:otp/:email").post(handleResetPassword)
 
 module.exports = router;

@@ -153,6 +153,8 @@ exports.postForgotPassword = async (req, res) => {
 
   userData.OTP = random_number;
 
+  userData.otpGeneratedTime = Date.now();
+
   await userData.save();
 
   res.redirect("/user/otp-verify/" + encodeURIComponent(email));
@@ -178,5 +180,71 @@ exports.verifyOtpForm = async (req, res) => {
     return res.send("user with the given otp and email not found...........");
   }
 
-  res.send("otp verified success");
+  const currentTime = Date.now();
+
+  const otpGeneratedTime = userData.otpGeneratedTime;
+
+  if (currentTime - otpGeneratedTime > 7200000) {
+    return res.send("otp has expired..........!!!");
+  }
+
+  return res.redirect(`/user/reset-password?email=${email}&otp=${otp} `);
+};
+
+exports.renderResetPassword = async (req, res) => {
+  const { otp, email } = req.query;
+  res.render("resetPassword", {
+    otp,
+    email,
+  });
+};
+
+exports.handleResetPassword = async (req, res) => {
+  const { otp, email } = req.params;
+
+  const { newPassword, confirmNewPassword } = req.body;
+
+  if (!otp || !email || !newPassword || !confirmNewPassword) {
+    return res
+      .status(400)
+      .send("please provide all the given requirements..........!");
+  }
+
+  if (newPassword !== confirmNewPassword) {
+    return res
+      .status(400)
+      .send("please provide the matched password...........!!!!!");
+  }
+
+  const hashedPassword = bcrypt.hashSync(newPassword, 12);
+
+  const userData = await users.findOne({
+    where: {
+      UserEmail: email,
+      OTP: otp,
+    },
+  });
+
+  if (!userData) {
+    return res
+      .status(400)
+      .send("users not found with the given otp and email.........!");
+  }
+
+  //  explaining for otp  expiration case scenario
+
+  const currentTime = Date.now();
+
+  const otpGeneratedTime = userData.otpGeneratedTime;
+
+  if (currentTime - otpGeneratedTime > 7200000) {
+    return res.send("invalid or expired otp");
+  }
+
+  //  updating the password
+  userData.UserPassword = hashedPassword;
+
+  await userData.save();
+
+  res.redirect("/blog/register");
 };
