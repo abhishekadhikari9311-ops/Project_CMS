@@ -14,13 +14,15 @@ const {
 } = require("../../controller/user/userController");
 const { isAuthenticated } = require("../../middleware/isAuthenticated");
 
+const catchError = require("../../services/catchError");
+
 const router = require("express").Router();
 
 router.route("/register").get(getRegisterPage);
 
-router.route("/register").post(postRegisterPage);
+router.route("/register").post(catchError(postRegisterPage));
 
-router.route("/login").get(getLoginPage).post(postLoginPage);
+router.route("/login").get(getLoginPage).post(catchError(postLoginPage));
 
 router.route("/get-users").get(getUsers);
 
@@ -35,6 +37,6 @@ router.route("/otp-verify/:email").get(renderOtpForm).post(verifyOtpForm);
 
 router.route("/reset-password").get(renderResetPassword);
 
-router.route("/reset-password/:otp/:email").post(handleResetPassword)
+router.route("/reset-password/:otp/:email").post(handleResetPassword);
 
 module.exports = router;

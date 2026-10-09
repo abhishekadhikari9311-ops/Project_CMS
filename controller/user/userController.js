@@ -2,7 +2,6 @@ const { users } = require("../../model/connection");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const sendEmail = require("../../services/sendEmail");
-const { where } = require("sequelize");
 
 exports.getRegisterPage = (req, res) => {
   const error = req.flash("error");
@@ -79,7 +78,7 @@ exports.postLoginPage = async (req, res) => {
     res.redirect("/user/register");
   }
 
-  const isPasswordMatch = bcrypt.compareSync(password, userExists.UserPassword);
+  const isPasswordMatch =await bcrypt.compare(password, userExists.UserPassword);
 
   if (!isPasswordMatch) {
     req.flash("error", "email and password didn't match ...........");
