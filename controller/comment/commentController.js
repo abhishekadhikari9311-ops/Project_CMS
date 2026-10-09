@@ -63,3 +63,22 @@ exports.readCommentAll = async (req, res) => {
     blogId,
   });
 };
+exports.deleteComment = async (req, res) => {
+  const { id } = req.params;
+
+  const { userId } = req;
+
+  if (!userId) {
+    return res.status(400).send("user not logged in ............");
+  }
+
+  await comments.destroy({
+    where: {
+      id,
+    },
+  });
+
+  console.log("comments of that user deleted successfully");
+
+  return res.redirect("/comment/add-comment");
+};

@@ -39,6 +39,11 @@
         <strong>Blog Subtitle:</strong>
         <%= comment.blog ? comment.blog.SubTitleName : "Unknown subtitle" %>
       </p>
+
+      <h1>
+        <a href="/comment/delete-comment/<%= comment.id  %>">delete comment</a>
+      </h1>
+
     </div>
     <hr>
   <% }) %>
