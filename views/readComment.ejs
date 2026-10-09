@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Comments</title>
+</head>
+<body>
+  <h1>Comments</h1>
+
+  <% if (fetchAllComment.length === 0) { %>
+    <p>No comments yet. Be the first to comment!</p>
+  <% } %>
+
+  <% fetchAllComment.forEach((comment) => { %>
+    <div>
+      <p>
+        <strong>Comment:</strong>
+        <%= comment.CommentMessage %>
+      </p>
+
+      <p>
+        <strong>User Name:</strong>
+        <%= comment.user ? comment.user.UserName : "Unknown user" %>
+      </p>
+
+      <p>
+        <strong>User Email:</strong>
+        <%= comment.user ? comment.user.UserEmail : "Unknown email" %>
+      </p>
+
+      <p>
+        <strong>Blog Title:</strong>
+        <%= comment.blog ? comment.blog.TitleName : "Unknown blog" %>
+      </p>
+
+      <p>
+        <strong>Blog Subtitle:</strong>
+        <%= comment.blog ? comment.blog.SubTitleName : "Unknown subtitle" %>
+      </p>
+    </div>
+    <hr>
+  <% }) %>
+
+  <a href="/comment/add-comment/<%= blogId %>">
+    Add a Comment
+  </a>
+
+  <a href="/blog">Back to Blogs</a>
+</body>
+</html>

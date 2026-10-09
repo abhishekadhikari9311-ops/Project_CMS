@@ -41,9 +41,11 @@ const PORT = 5000;
 
 const blogRoute = require("./routes/blog/blogRoute");
 const userRoute = require("./routes/user/userRoute");
+const commentRoute = require("./routes/comment/commentRoute");
 
 app.use("/blog", blogRoute);
 app.use("/user", userRoute);
+app.use("/comment", commentRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
