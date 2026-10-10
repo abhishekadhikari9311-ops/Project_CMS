@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
 const { users } = require("../model/connection");
+require("dotenv").config();
 
 exports.isAuthenticated = async (req, res, next) => {
   try {
@@ -11,7 +12,10 @@ exports.isAuthenticated = async (req, res, next) => {
       return res.redirect("/user/login");
     }
 
-    const verifiedToken = await promisify(jwt.verify)(token, "jwtsecretkey");
+    const verifiedToken = await promisify(jwt.verify)(
+      token,
+      process.env.jwtSecretKey,
+    );
     console.log("verified token----------->", verifiedToken);
 
     const user = await users.findByPk(verifiedToken.id);
