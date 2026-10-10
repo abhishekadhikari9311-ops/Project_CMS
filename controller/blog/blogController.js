@@ -1,4 +1,3 @@
-const { where } = require("sequelize");
 const { blogs, users } = require("../../model/connection");
 
 exports.postAddBlog = async (req, res) => {
@@ -23,7 +22,7 @@ exports.postAddBlog = async (req, res) => {
       TitleName,
       SubTitleName,
       DescriptionName,
-      image: "http://localhost:5000/" + req.file.filename,
+      image: process.env.BackendUrl + req.file.filename,
       userId,
     });
 
@@ -120,7 +119,7 @@ exports.postEditBlog = async (req, res) => {
     console.log("req.file----------->", req.file);
 
     if (req.file) {
-      updateData.image = "http://localhost:5000/" + req.file.filename;
+      updateData.image = process.env.BackendUrl + req.file.filename;
     }
 
     await blogs.update(updateData, {
